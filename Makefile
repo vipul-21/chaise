@@ -105,22 +105,25 @@ RECORD_JS_DEPS=$(RECORD_ASSETS)/lib/angular-route.min.js \
 	$(RECORD_ASSETS)/lib/filesize.min.js \
 	$(RECORD_ASSETS)/lib/slippry/slippry.min.js \
 	$(RECORD_ASSETS)/lib/fancybox/jquery.fancybox.pack.js \
-	$(RECORD_ASSETS)/lib/jquery.floatThead.min.js
+	$(RECORD_ASSETS)/lib/jquery.floatThead.min.js \
+	$(RECORD_ASSETS)/lib/kendo/js/kendo.all.min.js
 
 RECORD_JS_SOURCE= $(JS)/respond.js \
 	$(JS)/variables.js \
 	$(JS)/utils.js \
 	$(JS)/ermrest.js \
-	$(RECORD_ASSETS)/javascripts/app.js
+	$(RECORD_ASSETS)/javascripts/recordApp.js
 
 RECORD_SHARED_CSS_DEPS=$(CSS)/vendor/bootstrap.min.css \
 	$(CSS)/material-design/css/material-design-iconic-font.min.css \
 	$(CSS)/appheader.css
 
 RECORD_CSS_DEPS=$(RECORD_ASSETS)/lib/slippry/slippry.css \
-	$(RECORD_ASSETS)/lib/fancybox/jquery.fancybox.css
+	$(RECORD_ASSETS)/lib/fancybox/jquery.fancybox.css \
+    $(RECORD_ASSETS)/lib/kendo/styles/kendo.common.min.css \
+    $(RECORD_ASSETS)/lib/kendo/styles/kendo.default.min.css
 
-RECORD_CSS_SOURCE=$(RECORD_ASSETS)/stylesheets/app.css
+RECORD_CSS_SOURCE=$(RECORD_ASSETS)/stylesheets/recordApp.css
 
 # Config file
 JS_CONFIG=chaise-config.js

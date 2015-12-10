@@ -43,7 +43,7 @@
             <div id="entity-subtitle">{{ entity.internal.displayTableName }}</div>
             <table class="table">
                 <tr ng-repeat="(key, value) in entity | filteredEntity">
-                    <td class="entity-key col-xs-2">{{ key | removeUnderScores }}</td>
+                    <td class="entity-key col-xs-4">{{ key | removeUnderScores }}</td>
                     <td class="entity-value col-xs-10" ng-bind-html="value | sanitizeValue"></td>
                 </tr>
                 <tr ng-repeat="association in entity.associations">
@@ -124,6 +124,13 @@
                         
                     </accordion-heading>
 
+                    <div ng-controller="KendoDetailCtrl">
+                        <div id = "kendoDetail" kendo-grid="kendoDetailGrid" k-options="gridOptions(ft)" k-ng-delay="gridOptions(ft)"></div>
+                        <button kendo-button ng-click="load(ft)">Load Table Settings</button>
+                        <button kendo-button ng-click="save(ft)">Save Table Settings</button>
+                    </div>
+
+<!--
                     <div id="ft-transpose" ng-controller="NestedTablesCtrl" ng-if="ft.transpose">
                         <ul class="reference-views clearfix" ng-if="ft.count > 0">
                             <li><div class="reference-view-title">View</div></li>
@@ -182,7 +189,7 @@
                         </div>
 
                     </div>
-
+-->
                 </accordion-group>
 
             </accordion>
