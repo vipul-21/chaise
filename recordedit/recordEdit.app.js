@@ -19,6 +19,7 @@
         'chaise.utils',
         'chaise.validators',
         'chaise.html',
+        'chaise.recordeditcols',
         'ermrestjs',
         'ngCookies',
         'ngMessages',

@@ -453,6 +453,7 @@ RE_SHARED_JS_DEPS=$(JS)/vendor/jquery-latest.min.js \
 	$(COMMON)/markdownPreview.js \
 	$(COMMON)/footer.js \
 	$(COMMON)/recordCreate.js \
+	$(COMMON)/recordeditCols.js \
 	$(JS)/vendor/bootstrap.js \
 	$(JS)/vendor/ui-bootstrap-tpls.js \
 	$(JS)/vendor/select.js \
