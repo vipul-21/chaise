@@ -9,16 +9,7 @@
                 transclude: true,
                 scope: {
                     form: "=",
-                    column: '=',
-                    columnToDisplayType: '&',
-                    formContainer: '=',
-                    recordEditModel: '=',
-                    isDisabled: '&',
-                    isRequired: '&',
-                    model: '=',
-                    placeholder: '&',
-                    makeSafeIdAttr: '&',
-                    clear: "&"
+                    column: '='
 
                 },
                 templateUrl: '../common/templates/recordeditCols.html',

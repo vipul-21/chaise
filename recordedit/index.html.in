@@ -100,12 +100,6 @@
                                                 </td>
                                                 <td class="entity-value" ng-form="form.formContainer.row[rowIndex][column.name]" ng-repeat="(rowIndex, row) in form.recordEditModel.rows track by $index" ng-switch="form.columnToDisplayType(column);">
                                                     <recordedit-cols form = "form" column = "column"></recordedit-cols>
-                                                         <recordedit-cols1 form = "form" column = "column" column-to-display-type="form.columnToDisplayType(column)"
-                                                         form-container = "form.formContainer" record-edit-model = "form.recordEditModel"
-                                                         is-disabled="::form.isDisabled(column)" is-required = "::form.isRequired(column);" model="form.recordEditModel.rows[rowIndex][column.name]"
-                                                         placeholder="::form.getDisabledInputValue(column, form.recordEditModel.rows[rowIndex][column.name])" make-safe-id-attr="form.makeSafeIdAttr"
-                                                         clear="::form.clearModel(rowIndex, column.name, column.type.name);">
-                                                       </recordedit-cols1>
 
                                                 </td>
                                             </tr>
