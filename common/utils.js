@@ -991,7 +991,10 @@
          */
         function getDisplayType(type) {
             var displayType;
-
+            if(type._isArray)
+            {
+              return 'array';
+            }
             switch (type.name) {
                 case 'timestamp':
                 case 'timestamptz':

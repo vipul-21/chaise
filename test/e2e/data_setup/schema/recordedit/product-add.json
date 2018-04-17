@@ -124,6 +124,80 @@
           }
         },
         {
+
+            "comment": null,
+            "name": "sample_ids",
+            "rights": {
+              "insert": false,
+              "update": false,
+              "select": null,
+              "delete": false
+            },
+            "default": null,
+            "nullok": true,
+            "type": {
+              "typename": "int4[]",
+              "is_array": true,
+              "base_type": {
+                "typename": "int4"
+              }
+            },
+            "annotations": {
+              "comment": [
+                "title",
+                "top",
+                "orderby"
+              ],
+              "description": {
+                "display": "Name of sample_ids"
+              },
+              "tag:misd.isi.edu,2015:display" : {
+                "name" : "Name of sample_ids"
+              },
+              "facetOrder": [
+                "1"
+              ]
+            }
+
+        },
+        {
+
+            "comment": null,
+            "name": "array_text",
+            "rights": {
+              "insert": false,
+              "update": false,
+              "select": null,
+              "delete": false
+            },
+            "default": null,
+            "nullok": true,
+            "type": {
+              "typename": "text",
+              "is_array": true,
+              "base_type": {
+                "typename": "text"
+              }
+            },
+            "annotations": {
+              "comment": [
+                "title",
+                "top",
+                "orderby"
+              ],
+              "description": {
+                "display": "Array_texts"
+              },
+              "tag:misd.isi.edu,2015:display" : {
+                "name" : "Array_texts"
+              },
+              "facetOrder": [
+                "1"
+              ]
+            }
+
+        },
+        {
           "comment": "A valid url of the accommodation",
           "name": "website",
           "default": null,
@@ -298,8 +372,8 @@
         },
         "tag:isrd.isi.edu,2016:visible-columns" : {
           "detailed" : ["id", "title", "website", ["product-add", "fk_category"],  "rating", "summary", "description", "json_col","no_of_rooms", "opened_on", "date_col", "luxurious"],
-          "entry/create": ["id", "title", "website", ["product-add", "fk_category"], "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col","luxurious"],
-          "entry/edit": ["id", "title", "website", ["product-add", "fk_category"], "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col","luxurious"],
+          "entry/create": ["id", "title", "sample_ids", "website", ["product-add", "fk_category"], "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col","luxurious", "array_text"],
+          "entry/edit": ["id", "title", "sample_ids", "website", ["product-add", "fk_category"], "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col","luxurious", "array_text"],
           "compact" : ["title", "website", ["product-add", "fk_category"],  "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col", "luxurious"]
         },
 
