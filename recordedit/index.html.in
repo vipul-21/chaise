@@ -90,7 +90,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="entity" ng-form="form.formContainer.row[rowIndex]" ng-repeat="column in reference.columns">
+                                            <tr class="entity" ng-form="form.formContainer.row[rowIndex]" ng-repeat="(columnIdx, column) in reference.columns">
                                                 <td ng-style="form.captionColumnWidth" class="entity-key col-xs-1">
                                                     <span ng-if="::form.isRequired(column);" class="text-danger">*</span>
                                                     <span class="column-displayname" ng-attr-tooltip-placement="{{::(column.comment) ? 'right' : undefined}}" ng-attr-uib-tooltip="{{::(column.comment) ? column.comment : undefined}}">
@@ -100,9 +100,9 @@
                                                 </td>
                                                 <td class="entity-value" ng-form="form.formContainer.row[rowIndex][column.name]" ng-repeat="(rowIndex, row) in form.recordEditModel.rows track by $index" ng-switch="form.columnToDisplayType(column);">
                                                     <recordedit-cols form = "form" column = "column" row-index="rowIndex" row = "row"></recordedit-cols>
-                                                    <div ng-switch-when="array"><button class ="btn btn-primary btn-inverted center-block ng-scope">
+                                                    <div ng-switch-when="array"><button class ="btn btn-primary btn-inverted center-block" ng-click="::form.copyFormField(columnIdx, column)">
                                                         <span class="glyphicon glyphicon-plus"></span>
-                                                    </button><div>
+                                                    </button></div>
 
                                                 </td>
                                             </tr>

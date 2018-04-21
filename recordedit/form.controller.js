@@ -40,6 +40,7 @@
         vm.copyFormRow = copyFormRow;
         vm.removeFormRow = removeFormRow;
         vm.deleteRecord = deleteRecord;
+        vm.copyFormField = copyFormField;
 
         vm.inputType = null;
         vm.int2min = -32768;
@@ -433,6 +434,16 @@
                     onResize();
                 }, 10);
             }
+        }
+
+        function copyFormField(columnIdx, column){
+          console.log(column);
+          var columnToBeAdded = angular.copy(column)
+          columnToBeAdded.displayname.value = '';
+          $rootScope.reference.columns.splice(columnIdx + 1, 0, columnToBeAdded);
+          $timeout(function() {
+              onResize();
+          }, 10);
         }
 
         function populateSubmissionRow(modelRow, submissionRow, originalTuple, columns, editOrCopy) {
