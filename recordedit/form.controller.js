@@ -41,6 +41,7 @@
         vm.removeFormRow = removeFormRow;
         vm.deleteRecord = deleteRecord;
         vm.copyFormField = copyFormField;
+        vm.removeFormField = removeFormField;
 
         vm.inputType = null;
         vm.int2min = -32768;
@@ -439,8 +440,26 @@
         function copyFormField(columnIdx, column){
           console.log(column);
           var columnToBeAdded = angular.copy(column)
-          columnToBeAdded.displayname.value = '';
+          //columnToBeAdded.displayname.value = '';
+
+          if(columnToBeAdded.hasOwnProperty('name1')){
+            var nameIdx = columnToBeAdded.name.split("#")[1];
+            var newId = parseInt(nameIdx);
+            newId = newId + 1;
+            columnToBeAdded.name.slice(0,-1) + newId;
+          }else{
+            // Object.defineProperty(columnToBeAdded, 'name', {configurable: true});
+            // delete columnToBeAdded['name'];
+              columnToBeAdded.name1 =  columnToBeAdded.name+'#1';
+          }
           $rootScope.reference.columns.splice(columnIdx + 1, 0, columnToBeAdded);
+          $timeout(function() {
+              onResize();
+          }, 10);
+        }
+
+        function removeFormField(columnIdx, column){
+          $rootScope.reference.columns.splice(columnIdx, 1);
           $timeout(function() {
               onResize();
           }, 10);
@@ -755,7 +774,8 @@
                 if (!elemHeight) elemHeight = elem.outerHeight();
 
                 // Get all rows of the table
-                if (!trs) trs = elem.find('tr.entity');
+                // if (!trs)
+                trs = elem.find('tr.entity');
 
                 // iterate over each row
                 for(var i=0;i<trs.length;i++) {
