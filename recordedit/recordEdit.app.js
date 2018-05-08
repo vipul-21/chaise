@@ -260,6 +260,15 @@
                                 var tuple = page.tuples[j],
                                     values = tuple.values;
 
+                                // for (var val=0;val<values.length;val++){
+                                //   if(values[val] instanceof Array){
+                                //     for (var value=0; value<values[val].length;value++){
+                                //       values.splice(val+1, 0, values[val][value]);
+                                //     }
+                                //     values.splice(val,1);
+                                //   }
+                                // }
+
                                 // attach the foreign key data of the tuple
                                 recordEditModel.foreignKeyData[j] = tuple.linkedData;
 
@@ -268,7 +277,7 @@
                                 var shallowTuple = tuple.copy();
                                 $rootScope.tuples.push(shallowTuple);
 
-                                for (var i = 0; i < $rootScope.reference.columns.length; i++) {
+                                for (var i = 0, valIdx=0; i < $rootScope.reference.columns.length; i++, valIdx++) {
                                     column = $rootScope.reference.columns[i];
 
                                     // If input is disabled, there's no need to transform the column value.
@@ -277,22 +286,59 @@
                                         if (context.mode != context.modes.COPY) {
                                             // the structure for asset type columns is an object with a 'url' property
                                             if (column.isAsset) {
-                                                recordEditModel.rows[j][column.name] = { url: values[i] || "" };
+                                                recordEditModel.rows[j][column.name] = { url: values[valIdx] || "" };
                                             } else if (column.type.name == "timestamptz") {
-                                                recordEditModel.rows[j][column.name] = moment(values[i]).format(dataFormats.datetime.return);
+                                                recordEditModel.rows[j][column.name] = moment(values[valIdx]).format(dataFormats.datetime.return);
                                             } else {
-                                                recordEditModel.rows[j][column.name] = values[i];
+                                                recordEditModel.rows[j][column.name] = values[valIdx];
                                             }
                                         }
                                         continue;
                                     }
+                                    if(column.type._isArray){
+                                      var valueArray = values[valIdx];
+                                      var originalColIdx = i;
+                                      for (var k = 0; k < valueArray.length; k++){
+                                        //new column
+                                        var columnToBeAdded = angular.copy($rootScope.reference.columns[i]);
 
+                                          if(columnToBeAdded.hasOwnProperty('name1')){
+                                            var nameIdx = columnToBeAdded.name1.split("#")[1];
+                                            var newId = parseInt(nameIdx);
+                                            newId = newId + 1;
+                                            columnToBeAdded.name1 = columnToBeAdded.name1.slice(0,-1) + newId;
+
+                                          }else{
+
+                                              columnToBeAdded.name1 =  columnToBeAdded.name+'#1';
+                                          }
+                                          $rootScope.reference.columns.splice(i + 1, 0, columnToBeAdded);
+                                          var objid = columnToBeAdded.name1
+                                          var obj1 = {}
+                                          obj1[objid]= valueArray[k];
+                                          //recordEditModel.rows[j][column.name] = obj1;
+
+                                        // var newName = 'sample_ids';//column.name+'#'+(k+1);
+                                        // var val = {};
+                                        // val[newName] = valueArray[k] ;
+                                        if (recordEditModel.rows[j][column.name])
+                                          recordEditModel.rows[j][column.name][objid] =valueArray[k];// val;
+                                        else{
+                                          recordEditModel.rows[j][column.name] = obj1;
+                                        }
+                                        i++;
+                                      }
+                                      //delete unused original column
+                                      $rootScope.reference.columns.splice(originalColIdx, 1);
+                                      i--;
+
+                                    } else{
                                     // Transform column values for use in view model
                                     switch (column.type.name) {
                                         case "timestamp":
                                         case "timestamptz":
-                                            if (values[i]) {
-                                                var ts = moment(values[i]);
+                                            if (values[valIdx]) {
+                                                var ts = moment(values[valIdx]);
                                                 value = {
                                                     date: ts.format(dataFormats.date),
                                                     time: ts.format(dataFormats.time12),
@@ -309,28 +355,33 @@
                                         case "int2":
                                         case "int4":
                                         case "int8":
-                                            var intVal = parseInt(values[i], 10);
+                                            var intVal = parseInt(values[valIdx], 10);
                                             value = (!isNaN(intVal) ? intVal : null);
                                             break;
                                         case "float4":
                                         case "float8":
                                         case "numeric":
-                                            var floatVal = parseFloat(values[i]);
+                                            var floatVal = parseFloat(values[valIdx]);
                                             value = (!isNaN(floatVal) ? floatVal : null);
                                             break;
                                         default:
                                             if (column.isAsset) {
-                                                value = { url: values[i] || "" };
+                                                value = { url: values[valIdx] || "" };
                                             } else {
-                                                value = values[i];
+                                                value = values[valIdx];
                                             }
                                             break;
                                     }
 
+
                                     // no need to check for copy here because the case above guards against the negative case for copy
                                     recordEditModel.rows[j][column.name] = value;
+                                  }
                                 }
                             }
+
+                            // var obj = {untitled: "100", "sample_ids#1": "200"};
+                            // recordEditModel.rows[0].sample_ids = obj;
 
                             $rootScope.displayReady = true;
                             $log.info('Model: ', recordEditModel);

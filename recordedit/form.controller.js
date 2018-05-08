@@ -118,6 +118,9 @@
                 var col = $rootScope.reference.columns[i];
                 var rowVal = row[col.name];
                 if (rowVal && !col.getInputDisabled(context.appContext)) {
+                  if(col.type._isArray){
+                    rowVal = Object.values(rowVal);
+                  }else{
                     switch (col.type.name) {
                         case "timestamp":
                         case "timestamptz":
@@ -146,6 +149,7 @@
                             }
                             break;
                     }
+                  }
                 }
                 transformedRow[col.name] = rowVal;
             }
@@ -443,10 +447,10 @@
           //columnToBeAdded.displayname.value = '';
 
           if(columnToBeAdded.hasOwnProperty('name1')){
-            var nameIdx = columnToBeAdded.name.split("#")[1];
+            var nameIdx = columnToBeAdded.name1.split("#")[1];
             var newId = parseInt(nameIdx);
             newId = newId + 1;
-            columnToBeAdded.name.slice(0,-1) + newId;
+            columnToBeAdded.name1 = columnToBeAdded.name1.slice(0,-1) + newId;
           }else{
             // Object.defineProperty(columnToBeAdded, 'name', {configurable: true});
             // delete columnToBeAdded['name'];

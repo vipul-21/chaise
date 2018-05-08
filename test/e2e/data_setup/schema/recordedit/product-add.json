@@ -371,10 +371,10 @@
           "name": "Accommodations"
         },
         "tag:isrd.isi.edu,2016:visible-columns" : {
-          "detailed" : ["id", "title", "website", ["product-add", "fk_category"],  "rating", "summary", "description", "json_col","no_of_rooms", "opened_on", "date_col", "luxurious"],
+          "detailed" : ["id", "title", "sample_ids", "website", ["product-add", "fk_category"],  "rating", "summary", "description", "json_col","no_of_rooms", "opened_on", "date_col", "luxurious", "array_text"],
           "entry/create": ["id", "title", "sample_ids", "website", ["product-add", "fk_category"], "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col","luxurious", "array_text"],
           "entry/edit": ["id", "title", "sample_ids", "website", ["product-add", "fk_category"], "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col","luxurious", "array_text"],
-          "compact" : ["title", "website", ["product-add", "fk_category"],  "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col", "luxurious"]
+          "compact" : ["title", "sample_ids", "website", ["product-add", "fk_category"],  "rating", "summary", "description","json_col", "no_of_rooms", "opened_on", "date_col", "luxurious", "array_text"]
         },
 
         "tag:isrd.isi.edu,2016:visible-foreign-keys" : {

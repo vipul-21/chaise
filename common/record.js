@@ -50,7 +50,8 @@
 
                     // returns true if we should show the column
                     scope.showColumn = function (i) {
-                        return (typeof scope.values[i].value === "string" && scope.values[i].value !== '') && !scope.isInline(i);
+                        // return (typeof scope.values[i].value === "string" && scope.values[i].value !== '') && !scope.isInline(i);
+                        return (scope.values[i].value !== '') && !scope.isInline(i);
                     };
 
                     // returns true if we should show a table
