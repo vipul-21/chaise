@@ -100,15 +100,13 @@
                                                 </td>
                                                 <td class="entity-value" ng-form="form.formContainer.row[rowIndex][column.name]" ng-repeat="(rowIndex, row) in form.recordEditModel.rows track by $index" ng-switch="form.columnToDisplayType(column);">
                                                   <recordedit-cols form = "form" column = "column" row-index="rowIndex" row = "row"></recordedit-cols>
-                                                    <span ng-switch-when="array">
+                                                  <span ng-switch-when="array">
                                                       <button class ="btn btn-primary btn-inverted" ng-click="::form.copyFormField(columnIdx, column)">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                       </button>
                                                     <button class ="btn btn-primary btn-inverted" ng-click="::form.removeFormField(columnIdx, column)">
                                                         <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
-                                                    </span>
-
                                                 </td>
                                             </tr>
                                         </table>
