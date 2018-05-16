@@ -442,9 +442,8 @@
         }
 
         function copyFormField(columnIdx, column){
-          console.log(column);
+
           var columnToBeAdded = angular.copy(column)
-          //columnToBeAdded.displayname.value = '';
 
           if(columnToBeAdded.hasOwnProperty('name1')){
             var nameIdx = columnToBeAdded.name1.split("#")[1];
@@ -452,8 +451,6 @@
             newId = newId + 1;
             columnToBeAdded.name1 = columnToBeAdded.name1.slice(0,-1) + newId;
           }else{
-            // Object.defineProperty(columnToBeAdded, 'name', {configurable: true});
-            // delete columnToBeAdded['name'];
               columnToBeAdded.name1 =  columnToBeAdded.name+'#1';
           }
           $rootScope.reference.columns.splice(columnIdx + 1, 0, columnToBeAdded);
