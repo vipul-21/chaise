@@ -260,15 +260,6 @@
                                 var tuple = page.tuples[j],
                                     values = tuple.values;
 
-                                // for (var val=0;val<values.length;val++){
-                                //   if(values[val] instanceof Array){
-                                //     for (var value=0; value<values[val].length;value++){
-                                //       values.splice(val+1, 0, values[val][value]);
-                                //     }
-                                //     values.splice(val,1);
-                                //   }
-                                // }
-
                                 // attach the foreign key data of the tuple
                                 recordEditModel.foreignKeyData[j] = tuple.linkedData;
 
@@ -309,20 +300,15 @@
                                             columnToBeAdded.name1 = columnToBeAdded.name1.slice(0,-1) + newId;
 
                                           }else{
-
                                               columnToBeAdded.name1 =  columnToBeAdded.name+'#1';
                                           }
                                           $rootScope.reference.columns.splice(i + 1, 0, columnToBeAdded);
                                           var objid = columnToBeAdded.name1
                                           var obj1 = {}
                                           obj1[objid]= valueArray[k];
-                                          //recordEditModel.rows[j][column.name] = obj1;
 
-                                        // var newName = 'sample_ids';//column.name+'#'+(k+1);
-                                        // var val = {};
-                                        // val[newName] = valueArray[k] ;
                                         if (recordEditModel.rows[j][column.name])
-                                          recordEditModel.rows[j][column.name][objid] =valueArray[k];// val;
+                                          recordEditModel.rows[j][column.name][objid] =valueArray[k];
                                         else{
                                           recordEditModel.rows[j][column.name] = obj1;
                                         }
