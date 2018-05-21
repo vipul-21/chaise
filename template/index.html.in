@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chaise.template">
+    <head>
+        <meta charset="UTF-8">
+        <title>Template App</title>
+        <script src="/gtm-id.js"></script>
+        %ASSETS%
+    </head>
+    <body class="chaise-body">
+        <div ng-controller="templateController">
+            <navbar></navbar>
+            <div class="row">
+                <div id="bookmark-container" class="col-xs-12 meta-icons">
+                    <div class="pull-left">
+                        <h1 id="page-title">
+                            <span ng-if="::tableDisplayname.isHTML" ng-bind-html="tableDisplayName.value" ng-attr-tooltip-placement="right" ng-attr-uib-tooltip="{{::tableComment ? tableComment : undefined}}"></span>
+                            <span ng-if="::!tableDisplayname.isHTML" ng-bind="tableDisplayName.value" ng-attr-tooltip-placement="right" ng-attr-uib-tooltip="{{::tableComment ? tableComment : undefined}}"></span>
+                        </h1>
+                    </div>
+                    <div class="pull-right">
+                        <a id="permalink" ng-href="{{ permalink() }}">
+                            <span class="glyphicon glyphicon-bookmark"></span> <strong>Permalink</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="main-content">
+                <div class="main-container">
+                    <div class="main-body">
+
+                        <!-- TODO this is the body -->
+                        <alerts alerts="alerts"></alerts>
+                        <div ng-if="loading">
+                            loading...
+                        </div>
+                        <div ng-if="!loading">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th ng-repeat="col in reference.columns">
+                                            <span ng-if="col.displayname.isHTML" ng-bind-html="col.displayname.value"></span>
+                                            <span ng-if="!col.displayname.isHTML" ng-bind="col.displayname.value"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="tuple in page.tuples">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-repeat="value in tuple.values track by $index">
+                                            <div ng-switch="tuple.isHTML[$index]">
+                                                <span ng-switch-when="true" ng-bind-html="value"></span>
+                                                <span ng-switch-default ng-bind="value"></span>
+                                            </div>
+                                        </td>
+                                        <td ng-if="tuples.length === 0">
+                                            No Result Found.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-primary btn-inverted" ng-click="previous()" ng-disabled="!page.hasPrevious">previous</button>
+                            <button class="btn btn-primary btn-inverted" ng-click="next()" ng-disabled="!page.hasNext">next</button>
+                        </div>
+                    </div>
+                    <footer></footer>
+                </div>
+            </div>
+    </body>
+</html>

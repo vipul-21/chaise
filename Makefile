@@ -184,7 +184,8 @@ HTML=search/index.html \
 	 viewer/index.html \
 	 recordedit/index.html \
 	 record/index.html \
-	 recordedit/mdHelp.html
+	 recordedit/mdHelp.html \
+	 template/index.html
 
 # ERMrestjs Deps
 ERMRESTJS_RT_DIR=../../ermrestjs
@@ -522,6 +523,35 @@ RECSET_CSS_SOURCE=$(COMMON)/styles/app.css \
 	$(COMMON)/styles/appheader.css \
 	$(COMMON)/vendor/MarkdownEditor/styles/github-markdown.css
 
+CHAISETEMP_ASSETS=template
+
+CHAISETEMP_SHARED_JS_DEPS=$(JS)/vendor/jquery-latest.min.js \
+	$(JS)/vendor/angular.js \
+	$(JS)/vendor/angular-sanitize.js \
+	$(JS)/vendor/angular-messages.min.js \
+	$(COMMON)/vendor/angular-cookies.min.js \
+	$(COMMON)/vendor/moment.min.js \
+	$(COMMON)/vendor/sparkMD5.min.js \
+	$(COMMON)/alerts.js \
+	$(COMMON)/authen.js \
+	$(COMMON)/bindHtmlUnsafe.js \
+	$(COMMON)/errors.js \
+	$(COMMON)/filters.js \
+	$(COMMON)/footer.js \
+	$(COMMON)/modal.js \
+	$(COMMON)/navbar.js \
+	$(COMMON)/storage.js \
+	$(COMMON)/utils.js \
+	$(JS)/vendor/bootstrap.js \
+	$(JS)/vendor/ui-bootstrap-tpls.js
+
+CHAISETEMP_JS_SOURCE=$(CHAISETEMP_ASSETS)/template.app.js \
+	$(CHAISETEMP_ASSETS)/template.controller.js
+
+CHAISETEMP_SHARED_CSS_DEPS=$(CSS)/vendor/bootstrap.min.css \
+	$(COMMON)/styles/app.css \
+	$(COMMON)/styles/appheader.css
+
 # Config file
 JS_CONFIG=chaise-config.js
 
@@ -646,6 +676,10 @@ recordedit/index.html: recordedit/index.html.in .make-de-asset-block
 recordedit/mdHelp.html: recordedit/mdHelp.html.in .make-md-asset-block
 	sed -e '/%ASSETS%/ {' -e 'r .make-md-asset-block' -e 'd' -e '}' \
 	recordedit/mdHelp.html.in > recordedit/mdHelp.html
+
+template/index.html: template/index.html.in .make-chaisetemp-asset-block
+	sed -e '/%ASSETS%/ {' -e 'r .make-chaisetemp-asset-block' -e 'd' -e '}' \
+		template/index.html.in > template/index.html
 
 $(JS_CONFIG): chaise-config-sample.js
 	cp -n chaise-config-sample.js $(JS_CONFIG) || true
@@ -824,6 +858,27 @@ $(JS_CONFIG): chaise-config-sample.js
 	for file in $(RE_JS_MDHELP); do \
 		checksum=$$($(MD5) $$file | awk '{ print $$1 }') ; \
 		echo "<script src='../$$file?v=$$checksum'></script>" >> .make-md-asset-block ; \
+	done
+
+.make-chaisetemp-asset-block: $(CHAISETEMP_SHARED_CSS_DEPS) $(CHAISETEMP_SHARED_JS_DEPS) $(CHAISETEMP_JS_SOURCE) $(JS_CONFIG)
+	> .make-chaisetemp-asset-block
+	for file in $(CHAISETEMP_SHARED_CSS_DEPS); do \
+		checksum=$$($(MD5) $$file | awk '{ print $$1 }') ; \
+		echo "<link rel='stylesheet' type='text/css' href='../$$file?v=$$checksum'>" >> .make-chaisetemp-asset-block ; \
+	done
+	for file in $(JS_CONFIG) $(CHAISETEMP_SHARED_JS_DEPS); do \
+		checksum=$$($(MD5) $$file | awk '{ print $$1 }') ; \
+		echo "<script src='../$$file?v=$$checksum'></script>" >> .make-chaisetemp-asset-block ; \
+	done
+	for script in $(ERMRESTJS_DEPS); do \
+		buildpath=$(ERMRESTJS_BLD_DIR)/$$script ; \
+		runtimepath=$(ERMRESTJS_RT_DIR)/$$script ; \
+		checksum=$$($(MD5) $$buildpath | awk '{ print $$1 }') ; \
+		echo "<script src='$$runtimepath?v=$$checksum'></script>" >> .make-chaisetemp-asset-block ; \
+	done
+	for file in $(CHAISETEMP_JS_SOURCE); do \
+		checksum=$$($(MD5) $$file | awk '{ print $$1 }') ; \
+		echo "<script src='../$$file?v=$$checksum'></script>" >> .make-chaisetemp-asset-block ; \
 	done
 
 # Rule for installing for normal deployment
