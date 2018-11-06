@@ -120,7 +120,7 @@
 
                 scope.submit = function (template) {
                     // The actual export code - it invokes a (synchronous) web service call to either
-                    // ermrest (for single table CSV or JSON export) or ioboxd (if bag or multi-file export)
+                    // ermrest (for single table CSV or JSON export) or deriva/export (if bag or multi-file export)
                     _doExport(scope, template);
                 };
 

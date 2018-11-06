@@ -14,7 +14,7 @@ which runs in most modern Web browsers. This includes Chrome 13 (or better),
 Firefox 7 (or better), Internet Explorer 10 (or better including ME Edge), and
 Safari 6 (or better). Chaise is the front-end component of the [Deriva Platform].
 Chaise utilizes [ERMrestJS] client library to interact with the Deriva services
-including including [ERMrest], [Hatrac], and [ioboxd].
+including including [ERMrest], [Hatrac], and [deriva/export].
 
 
 [heuristics]: https://en.wikipedia.org/wiki/Heuristic_%28computer_science%29
@@ -23,7 +23,7 @@ including including [ERMrest], [Hatrac], and [ioboxd].
 [Web resources]: https://en.wikipedia.org/wiki/Web_resource
 [ERMrest]: https://github.com/informatics-isi-edu/ermrest
 [Hatrac]: https://github.com/informatics-isi-edu/hatrac
-[ioboxd]: https://github.com/informatics-isi-edu/ioboxd
+[deriva/export]: https://github.com/informatics-isi-edu/deriva-web
 [Deriva Platform]: http://isrd.isi.edu/deriva
 
 ## Dynamic Rendering Approach
